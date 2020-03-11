@@ -17,8 +17,7 @@ namespace BankApp
     /// money into the account
     /// </summary>
     class Account
-    {
-        private static int lastAccountNumber = 0;
+    {        
         #region Properties
         /// <summary>
         /// Unique account number
@@ -34,8 +33,6 @@ namespace BankApp
         #region Constructor
         public Account()
         {
-            //lastAccountNumber += 1;
-            AccountNumber = ++lastAccountNumber;
             CreatedDate = DateTime.UtcNow;
         }
         #endregion
@@ -54,6 +51,8 @@ namespace BankApp
 
         public decimal Withdraw(decimal amount)
         {
+            if (amount > Balance)
+                throw new ArgumentOutOfRangeException("amount", "InSufficient funds!");
             Balance -= amount;
             return Balance;
         }

@@ -6,7 +6,7 @@ namespace BankApp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("***********");
+            Console.WriteLine("*******************");
             Console.WriteLine("Welcome to my bank!");
 
             while (true)
@@ -64,12 +64,35 @@ namespace BankApp
                         break;
                     case "3":
                         PrintAllAccounts();
-                        Console.Write("Account Number: ");
-                        accountNumber = Convert.ToInt32(Console.ReadLine());
-                        Console.Write("Amount to withdraw: ");
-                        amount = Convert.ToDecimal(Console.ReadLine());
-                        Bank.Withdraw(accountNumber, amount);
-                        Console.WriteLine("Withdrawl completed!");
+                        try
+                        {
+                            Console.Write("Account Number: ");
+                            accountNumber = Convert.ToInt32(Console.ReadLine());
+                            Console.Write("Amount to withdraw: ");
+                            amount = Convert.ToDecimal(Console.ReadLine());
+                            Bank.Withdraw(accountNumber, amount);
+                            Console.WriteLine("Withdrawl completed!");
+                        }
+                        catch (FormatException)
+                        {
+                            Console.WriteLine("Eiterh the account number or the amount is invalid!");
+                        }
+                        catch (OverflowException)
+                        {
+                            Console.WriteLine("Amount or account number is invalid. Please try again!");
+                        }
+                        catch (ArgumentOutOfRangeException ax)
+                        {
+                            Console.WriteLine($"{ax}");
+                        }
+                        catch(ArgumentException ax)
+                        {                            
+                            Console.WriteLine($"{ax}");
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine($"Something went wrong!");
+                        }
                         break;
                     case "4":
                         PrintAllAccounts();
